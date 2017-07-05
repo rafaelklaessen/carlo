@@ -44,5 +44,19 @@ object Firebase {
     else Some(parse(json).extract[A])
   }
 
+  def listen(refPath: String)(onChange: DataSnapshot => Unit): Unit = {
+    val ref = FirebaseDatabase.getInstance.getReference(refPath)
+
+    ref.addValueEventListener(new ValueEventListener() {
+      override def onDataChange(dataSnapshot: DataSnapshot) = {
+        onChange(dataSnapshot)
+      }
+
+      override def onCancelled(databaseError: DatabaseError) = {
+        println(databaseError.getCode)
+      }
+    });
+  }
+
   private def getUrl(url: String) = s"$dbUrl/$url.json?auth=$dbSecret"
 }

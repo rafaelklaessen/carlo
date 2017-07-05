@@ -1,5 +1,11 @@
 package example
 import net.rk02.firebasescala.Firebase
+
+
+import com.google.firebase
+import com.google.firebase._
+import com.google.firebase.auth._
+import com.google.firebase.database._
 import java.io.FileInputStream
 import scala.concurrent.{ExecutionContext, Future}
 import ExecutionContext.Implicits.global
@@ -13,6 +19,10 @@ object Hello extends App {
     case data => {
       println(data)
     }
+  }
+
+  Firebase.listen("/jan") { dataSnapshot: DataSnapshot =>
+    println(dataSnapshot)
   }
 
 }

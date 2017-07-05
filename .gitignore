@@ -13,3 +13,5 @@ project/plugins/lib_managed
 project/plugins/target
 project/plugins/src_managed
 project/plugins/project
+
+firebase-auth.json

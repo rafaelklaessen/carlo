@@ -7,7 +7,7 @@ lazy val root = (project in file(".")).
       scalaVersion := "2.11.1",
       version      := "0.1.0-SNAPSHOT"
     )),
-    name := "Firebase Scala"
+    name := "Carlo"
   )
 
 libraryDependencies ++= Seq(

@@ -1,4 +1,4 @@
-package net.rk02.firebasescala
+package net.rk02.carlo
 
 import java.io.FileInputStream
 import com.google.firebase
@@ -53,7 +53,7 @@ object Firebase {
       }
 
       override def onCancelled(databaseError: DatabaseError) = {
-        println(databaseError.getCode)
+        throw databaseError.toException
       }
     });
   }

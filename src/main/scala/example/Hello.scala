@@ -1,5 +1,5 @@
 package example
-import net.rk02.firebasescala.Firebase
+import net.rk02.carlo.Firebase
 
 
 import com.google.firebase

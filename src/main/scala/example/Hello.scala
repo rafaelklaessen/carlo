@@ -20,7 +20,7 @@ object Hello extends App {
     }
   }
 
-  Firebase.listen("/jan") { dataSnapshot: DataSnapshot =>
+  Firebase.listen("jan") { dataSnapshot: DataSnapshot =>
     println(dataSnapshot.getValue)
   }
 
@@ -37,4 +37,6 @@ object Hello extends App {
       println(data)
     }
   }
+
+  Firebase.save("henk/jan/erik", "tipsfedora")
 }

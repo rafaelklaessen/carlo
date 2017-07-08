@@ -45,6 +45,7 @@ object Firebase {
 
   def getWithFilters[A](path: String, filters: String)(implicit m: Manifest[A]):
       Future[Option[A]] = Future {
+
     val json = Source.fromURL(getUrl(path) + "&" + filters).mkString
 
     if (json == "null") None else Some(parse(json).extract[A])
@@ -58,6 +59,7 @@ object Firebase {
 
   def listen(refPath: String)(onChange: DataSnapshot => Unit,
       onCancel: DatabaseError => Unit = _ => Unit): Unit = {
+
     val ref = FirebaseDatabase.getInstance.getReference(refPath)
 
     ref.addValueEventListener(new ValueEventListener() {
@@ -69,6 +71,10 @@ object Firebase {
         onCancel(databaseError)
       }
     });
+  }
+
+  def save(refPath: String, item: Object): Unit = {
+    FirebaseDatabase.getInstance.getReference(refPath).setValue(item)
   }
 
   private def getUrl(url: String) = s"$dbUrl/$url.json?auth=$dbSecret"

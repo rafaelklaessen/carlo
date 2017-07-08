@@ -37,10 +37,23 @@ object Firebase {
     Firebase.dbSecret = dbSecret
   }
 
-  def get[A](url: String)(implicit m: Manifest[A]): Future[Option[A]] = Future {
-    val json = Source.fromURL(getUrl(url)).mkString
+  def get[A](path: String)(implicit m: Manifest[A]): Future[Option[A]] = Future {
+    val json = Source.fromURL(getUrl(path)).mkString
 
     if (json == "null") None else Some(parse(json).extract[A])
+  }
+
+  def getWithFilters[A](path: String, filters: String)(implicit m: Manifest[A]):
+      Future[Option[A]] = Future {
+    val json = Source.fromURL(getUrl(path) + "&" + filters).mkString
+
+    if (json == "null") None else Some(parse(json).extract[A])
+  }
+
+  def getShallow(url: String): Future[Option[Map[String, Boolean]]] = Future {
+    val json = Source.fromURL(getUrl(url) + "&shallow=true").mkString
+
+    if (json == "null") None else Some(parse(json).extract[Map[String, Boolean]])
   }
 
   def listen(refPath: String)(onChange: DataSnapshot => Unit,

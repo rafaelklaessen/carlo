@@ -23,4 +23,18 @@ object Hello extends App {
   Firebase.listen("/jan") { dataSnapshot: DataSnapshot =>
     println(dataSnapshot.getValue)
   }
+
+  val filtered = Firebase.getWithFilters[Map[String, String]]("jan", "orderBy=\"$key\"&limitToFirst=1")
+
+  filtered onSuccess {
+    case data => println(data)
+  }
+
+  val shallow = Firebase.getShallow("jan")
+
+  shallow onSuccess {
+    case data => {
+      println(data)
+    }
+  }
 }

@@ -9,6 +9,7 @@ import java.io.FileInputStream
 import scala.concurrent.{ExecutionContext, Future}
 import ExecutionContext.Implicits.global
 import net.rk02.carlo.listeners.Listeners
+import net.rk02.carlo.listeners.Listeners._
 import net.rk02.carlo.listeners.CustomListeners
 
 object Hello extends App with CustomListeners {
@@ -42,5 +43,31 @@ object Hello extends App with CustomListeners {
 
   Firebase.save("henk/jan/erik", "tipsfedora")
 
-  println(FirebaseDatabase.getInstance.getReference("jan").henk)
+  val ref = FirebaseDatabase.getInstance.getReference("erik")
+
+  ref.on(Value) { dataSnapshot: DataSnapshot =>
+    println("VALUE")
+    println(dataSnapshot.getValue)
+  }
+
+  ref.on(ChildAdded) { dataSnapshot: DataSnapshot =>
+    println("CHILD ADDED")
+    println(dataSnapshot.getKey + "->" + dataSnapshot.getValue)
+  }
+
+  ref.on(ChildChanged) { dataSnapshot: DataSnapshot =>
+    println("CHILD CHANGED")
+    println(dataSnapshot.getKey + "->" + dataSnapshot.getValue)
+  }
+
+  ref.on(ChildRemoved) { dataSnapshot: DataSnapshot =>
+    println("CHILD REMOVED")
+    println(dataSnapshot.getKey + "->" + dataSnapshot.getValue)
+  }
+
+  ref.on(ChildMoved) { dataSnapshot: DataSnapshot =>
+    println("CHILD MOVED")
+    println(dataSnapshot.getKey + "->" + dataSnapshot.getValue)
+  }
+
 }

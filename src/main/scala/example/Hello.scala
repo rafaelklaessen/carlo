@@ -8,8 +8,8 @@ import com.google.firebase.database._
 import java.io.FileInputStream
 import scala.concurrent.{ExecutionContext, Future}
 import ExecutionContext.Implicits.global
-import net.rk02.carlo.Listeners
-import net.rk02.carlo.CustomListeners
+import net.rk02.carlo.listeners.Listeners
+import net.rk02.carlo.listeners.CustomListeners
 
 object Hello extends App with CustomListeners {
   val s = new FileInputStream("firebase-auth.json")

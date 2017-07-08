@@ -1,12 +1,6 @@
-package net.rk02.carlo
+package net.rk02.carlo.listeners
 
 import com.google.firebase.database.Query
-
-class Listeners(q: Query) {
-  def henk = {
-    "henk"
-  }
-}
 
 // Use this trait to enable the custom listener methods
 trait CustomListeners {

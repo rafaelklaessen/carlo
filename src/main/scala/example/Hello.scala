@@ -8,8 +8,10 @@ import com.google.firebase.database._
 import java.io.FileInputStream
 import scala.concurrent.{ExecutionContext, Future}
 import ExecutionContext.Implicits.global
+import net.rk02.carlo.Listeners
+import net.rk02.carlo.CustomListeners
 
-object Hello extends App {
+object Hello extends App with CustomListeners {
   val s = new FileInputStream("firebase-auth.json")
   Firebase.init(s, "fir-scala", "RejuhkemAHBnTzNDxc926y4v0K4Y1UsBebWl4p1S")
   val g = Firebase.get[String]("kees")
@@ -39,4 +41,6 @@ object Hello extends App {
   }
 
   Firebase.save("henk/jan/erik", "tipsfedora")
+
+  println(FirebaseDatabase.getInstance.getReference("jan").henk)
 }

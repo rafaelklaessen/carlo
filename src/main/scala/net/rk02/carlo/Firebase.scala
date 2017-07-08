@@ -12,8 +12,6 @@ import org.json4s._
 import org.json4s.jackson.JsonMethods._
 import scala.reflect._
 
-class FirebaseReadException(message: String = "", cause: Throwable = null) extends RuntimeException(message, cause)
-
 object Firebase {
   private var projectId = ""
   private var dbSecret = ""
@@ -39,7 +37,6 @@ object Firebase {
 
   def get[A](path: String)(implicit m: Manifest[A]): Future[Option[A]] = Future {
     val json = Source.fromURL(getUrl(path)).mkString
-
     if (json == "null") None else Some(parse(json).extract[A])
   }
 
@@ -47,13 +44,11 @@ object Firebase {
       Future[Option[A]] = Future {
 
     val json = Source.fromURL(getUrl(path) + "&" + filters).mkString
-
     if (json == "null") None else Some(parse(json).extract[A])
   }
 
   def getShallow(url: String): Future[Option[Map[String, Boolean]]] = Future {
     val json = Source.fromURL(getUrl(url) + "&shallow=true").mkString
-
     if (json == "null") None else Some(parse(json).extract[Map[String, Boolean]])
   }
 

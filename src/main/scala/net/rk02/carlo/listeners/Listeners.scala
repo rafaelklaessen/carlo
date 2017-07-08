@@ -4,10 +4,10 @@ import com.google.firebase.database._
 import scala.collection.mutable.ListBuffer
 
 class Listeners(query: Query) {
-  def on(eventType: String)(onChange: DataSnapshot => Unit,
+  def on(eventType: Listeners.Value)(onChange: DataSnapshot => Unit,
       onCancel: DatabaseError => Unit = _ => Unit): Unit = {
 
-    if (eventType == Listeners.Value) {
+    if (eventType == Listeners.ValueChanged) {
       query.addValueEventListener(new ValueEventListener() {
         override def onDataChange(dataSnapshot: DataSnapshot) = {
           onChange(dataSnapshot)
@@ -43,10 +43,6 @@ class Listeners(query: Query) {
   }
 }
 
-object Listeners {
-  val Value = "value"
-  val ChildAdded = "childAdded"
-  val ChildChanged = "childChanged"
-  val ChildRemoved = "childRemoved"
-  val ChildMoved = "childMoved"
+object Listeners extends Enumeration {
+  val ValueChanged, ChildAdded, ChildChanged, ChildRemoved, ChildMoved = Value
 }

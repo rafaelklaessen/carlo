@@ -45,7 +45,7 @@ object Hello extends App with CustomListeners {
 
   val ref = FirebaseDatabase.getInstance.getReference("erik")
 
-  ref.on(Value) { dataSnapshot: DataSnapshot =>
+  ref.on(ValueChanged) { dataSnapshot: DataSnapshot =>
     println("VALUE")
     println(dataSnapshot.getValue)
   }

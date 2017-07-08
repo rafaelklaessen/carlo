@@ -1,6 +1,5 @@
 package example
 import net.rk02.carlo.Firebase
-import net.rk02.carlo.Firebase.Value
 
 import com.google.firebase
 import com.google.firebase._
@@ -21,8 +20,7 @@ object Hello extends App {
     }
   }
 
-  Firebase.listen("/jan", Value) { dataSnapshot: DataSnapshot =>
+  Firebase.listen("/jan") { dataSnapshot: DataSnapshot =>
     println(dataSnapshot.getValue)
   }
-
 }

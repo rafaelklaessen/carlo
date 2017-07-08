@@ -15,9 +15,6 @@ import scala.reflect._
 class FirebaseReadException(message: String = "", cause: Throwable = null) extends RuntimeException(message, cause)
 
 object Firebase {
-  val Key = "key"
-  val Value = "value"
-
   private var projectId = ""
   private var dbSecret = ""
   private var dbUrl = ""
@@ -43,24 +40,20 @@ object Firebase {
   def get[A](url: String)(implicit m: Manifest[A]): Future[Option[A]] = Future {
     val json = Source.fromURL(getUrl(url)).mkString
 
-    if (json == "null") None
-    else Some(parse(json).extract[A])
+    if (json == "null") None else Some(parse(json).extract[A])
   }
 
-  def listen(refPath: String, orderBy: String = Key)(onChange: DataSnapshot => Unit): Unit = {
+  def listen(refPath: String)(onChange: DataSnapshot => Unit,
+      onCancel: DatabaseError => Unit = _ => Unit): Unit = {
     val ref = FirebaseDatabase.getInstance.getReference(refPath)
 
-    var orderedRef = ref.orderByKey
-    if (orderBy == Value) orderedRef = ref.orderByValue
-    else if (orderBy.length > 0) orderedRef = ref.orderByChild(orderBy)
-
-    orderedRef.addValueEventListener(new ValueEventListener() {
+    ref.addValueEventListener(new ValueEventListener() {
       override def onDataChange(dataSnapshot: DataSnapshot) = {
         onChange(dataSnapshot)
       }
 
       override def onCancelled(databaseError: DatabaseError) = {
-        throw databaseError.toException
+        onCancel(databaseError)
       }
     });
   }

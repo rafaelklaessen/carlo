@@ -5,7 +5,7 @@ Firebase library for Scala
 Carlo provides a set of methods to make the accessing of the Firebase REST API easier. It also provides a Scala wrapper for the Firebase event listeners
 
 ## Code examples
-TODO
+See [the wiki](https://github.com/rafaelklaessen/carlo/wiki) for code examples.
 
 ## Goal
 The goal of Carlo is to make using Firebase in Scala easier; *not* to replace Google's Java admin SDK completely.

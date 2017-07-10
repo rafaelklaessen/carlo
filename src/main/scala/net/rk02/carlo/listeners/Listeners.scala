@@ -3,7 +3,16 @@ package net.rk02.carlo.listeners
 import com.google.firebase.database._
 import scala.collection.mutable.ListBuffer
 
+/**
+ * Listeners
+ * The Listeners class's supposed to be bound to com.google.firebase.database.Query via
+ * the CustomListeners trait.
+ */
 class Listeners(query: Query) {
+  /**
+   * Listeners.on
+   * Scala wrapper around the standard ValueEventListener and ChildEventListener.
+   */
   def on(eventType: Listeners.Value)(onChange: DataSnapshot => Unit,
       onCancel: DatabaseError => Unit = _ => Unit): Unit = {
 
@@ -43,6 +52,7 @@ class Listeners(query: Query) {
   }
 }
 
+// Companion object to Listeners class that simply contains the valid event types
 object Listeners extends Enumeration {
   val ValueChanged, ChildAdded, ChildChanged, ChildRemoved, ChildMoved = Value
 }
